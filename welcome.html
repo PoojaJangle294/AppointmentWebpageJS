@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="project.css">
+    <script type="text/javascript">
+        
+        // var list1=[];
+        // var list2=[];
+        // var list3=[];
+        // var list4=[];
+        // var list5=[];
+        // var list6=[];
+        // var n=1;
+        // var x=0;
+
+        // alert(Date());
+
+
+        var selectedRow=null;
+        function sub()
+        {
+            
+           var p1='(^[A-Z]{1,1})+([a-z]{1,10})$'
+            var u=form1.fname.value;
+
+            if(u=="")
+            {
+                err1.style.color="red";
+                img1.innerHTML="<img src='warning-removebg.png' height='30px' width='30px'>";
+                err1.innerHTML="Please fill first name";
+                return false;
+            }
+            if(!u.match(p1))
+            {
+                form1.fname.focus();
+                return false;
+            }
+
+            var p2='(^[A-Z]{1,1})+([a-z]{1,10})$'
+            var u2=form1.lname.value;
+            if(u2=="")
+            {
+                err2.innerHTML="Please fill last name";
+                img2.innerHTML="<img src='warning-removebg.png' height='30px' width='30px'>";
+                err2.style.color="red";
+                return false;
+            }
+            if(!u2.match(p2))
+            {
+                form1.lname.focus();
+                return false;
+            }
+
+            var p3='(^[a-z]{4,10})+([0-9]{0,3})+([_#$%*]{0,1})([a-z0-9]{0,5})+([@]{1,1})+([a-z]{5,10})+([.com]{1,4})$';
+            var u3=form1.email.value;
+
+            if(u3=="")
+            {
+                err3.innerHTML="Please fill email id";
+                img3.innerHTML="<img src='warning-removebg.png' height='30px' width='30px'>";
+                err3.style.color="red";
+                return false;
+            }
+            if(!u3.match(p3))
+            {
+                form1.email.focus();
+                return false;
+            }
+
+            var p6='(^[789]{1,1})+([0-9]{9,9})$'
+            var u6=form1.cono.value;
+
+            if(u6=="")
+            {
+                err6.innerHTML="Plaese fill contact number";
+                img6.innerHTML="<img src='warning-removebg.png' height='30px' width='30px'>";
+                err6.style.color="red";
+                return false;
+            }
+            if(!u6.match(p6))
+            {
+                form1.cono.focus();
+                return false;
+            }
+
+            var dt=form1.dtd.value;
+            // var dt1=Date()
+            if(dt=="")
+            {
+                alert("Please enter the date");
+                return false;
+            }
+
+            var inpDate = new Date(dt);
+            var currDate = new Date();
+              
+            if(inpDate.setHours(0, 0, 0, 0) <=
+                    currDate.setHours(0, 0, 0, 0))
+            {
+                alert
+                    ("Please enter after today's Date");
+                    return false;
+            } 
+                
+
+            var tt=form1.tim.value;
+            if(tt=="")
+            {
+                alert("Please enter the time");
+                return false;
+            }
+
+            // var g=document.form1.gen;
+            // for(i=0;i<g.length;i++)
+            // {
+            //     if(g[i].checked==true)
+            //     {
+            //         return true;
+            //     }
+            // }
+            // alert("Please select gender");
+            // return false;
+
+
+
+            var fromdata=readdata();
+            if(selectedRow==null)
+            inserdata(fromdata);
+            else
+            updaterecorde(fromdata);
+        resetform();
+            
+        
+        // var addshow=document.getElementById("show");
+        // var addrow=addshow.insertRow(n);
+
+        // list1[x]=document.getElementById("fname").value;
+        // list2[x]=document.getElementById("lname").value;
+        // list3[x]=document.getElementById("email").value;
+        // list4[x]=document.getElementById("cono").value;
+        // list5[x]=document.getElementById("dtd").value;
+        // list6[x]=document.getElementById("tim").value;
+
+        // var cel1=addrow.insertCell(0);
+        // var cel2=addrow.insertCell(1);
+        // var cel3=addrow.insertCell(2);
+        // var cel4=addrow.insertCell(3);
+        // var cel5=addrow.insertCell(4);
+        // var cel6=addrow.insertCell(5);
+        // var cel7=addrow.insertCell(6);
+        // var cel8=addrow.insertCell(7);
+
+
+        // cel1.innerHTML=list1[x];
+        // cel2.innerHTML=list2[x];
+        // cel3.innerHTML=list3[x];
+        // cel4.innerHTML=list4[x];
+        // cel5.innerHTML=list5[x];
+        // cel6.innerHTML=list6[x];
+        // cel7.innerHTML="<button>DELETE</button>"
+        // cel8.innerHTML="<button onclick='onedit(this)'>Edit</button>";
+        // n++;
+        // x++;
+
+        }
+
+
+
+        function onedit(td){
+            selectedRow=td.parentElement.parentElement;
+            document.getElementById("fname").value=selectedRow.cells[0].innerHTML;
+            document.getElementById("lname").value=selectedRow.cells[1].innerHTML;
+            document.getElementById("email").value=selectedRow.cells[2].innerHTML;
+            document.getElementById("cono").value=selectedRow.cells[3].innerHTML;
+            document.getElementById("dtd").value=selectedRow.cells[4].innerHTML;
+            document.getElementById("tim").value=selectedRow.cells[5].innerHTML;
+
+        }
+
+        function readdata(){
+            var fromdata={};
+            fromdata["fname"]=document.getElementById("fname").value;
+            fromdata["lname"]=document.getElementById("lname").value;
+            fromdata["email"]=document.getElementById("email").value;
+            fromdata["cono"]=document.getElementById("cono").value;
+            fromdata["dtd"]=document.getElementById("dtd").value;
+            fromdata["tim"]=document.getElementById("tim").value;
+            return fromdata;
+        }
+
+        function inserdata(data){
+            var tble=document.getElementById("show");
+            var newrow=tble.insertRow(tble.length);
+            cell1=newrow.insertCell(0);
+            cell1.innerHTML=data.fname;
+            cell2=newrow.insertCell(1);
+            cell2.innerHTML=data.lname;
+            cell3=newrow.insertCell(2);
+            cell3.innerHTML=data.email;
+            cell4=newrow.insertCell(3);
+            cell4.innerHTML=data.cono;
+            cell5=newrow.insertCell(4);
+            cell5.innerHTML=data.dtd;
+            cell6=newrow.insertCell(5);
+            cell6.innerHTML=data.tim;
+            cell7=newrow.insertCell(6);
+            cell7.innerHTML="<button onclick='ondelete(this)'>DELETE</button>"
+            cell8=newrow.insertCell(7);
+            cell8.innerHTML="<button onclick='onedit(this)'>EDIT</button>";
+            
+        }
+
+        function updaterecorde(fromdata){
+            selectedRow.cells[0].innerHTML=fromdata.fname;
+            selectedRow.cells[1].innerHTML=fromdata.lname;
+            selectedRow.cells[2].innerHTML=fromdata.email;
+            selectedRow.cells[3].innerHTML=fromdata.cono;
+            selectedRow.cells[4].innerHTML=fromdata.dtd;
+            selectedRow.cells[5].innerHTML=fromdata.tim;
+        }
+
+        function ondelete(td){
+            if(confirm('Are you sure to delete this data')){
+            row=td.parentElement.parentElement;
+            document.getElementById("show").deleteRow(row.rowIndex)
+            resetform();
+            }
+        }
+
+        var count=0;
+        function ffun(){
+            // form1.fname.style.border="4px solid green";
+
+            if(count==0)
+            {
+            err1.innerHTML="Please Enter First Letter in Capital";
+            err1.style.color="bisque"
+                
+            }
+            else
+            {
+                err1.style.color="red";
+                err1.innerHTML="Please Fill Correct first name";
+            }
+            count++;
+        }
+
+        function ffun1(){
+            var p1='(^[A-Z]{1,1})+([a-z]{1,10})$'
+            var u=form1.fname.value;
+
+            if(u.match(p1))
+            {
+                img1.innerHTML="<img src='correctsign2.webp' height='30px' width='30px'>";
+                form1.fname.style.border="4px solid green";
+                err1.innerHTML="";
+                form1.lname.focus();
+            }
+            else{
+                img1.innerHTML="<img src='wrong.png' height='30px' width='30px'>";
+                form1.fname.value="";
+                form1.fname.style.border="4px solid red";
+                err1.style.color="red";
+                err1.innerHTML="Please fill Correct Name";
+                
+                form1.fname.focus();
+            }
+
+        }
+        function key1()
+        {
+            err1.innerHTML="Please Enter First Letter in Capital";
+            err1.style.color="bisque"
+            img1.innerHTML="";
+        }
+
+        function lfun1(){
+            var p2='(^[A-Z]{1,1})+([a-z]{1,10})$'
+            var u2=form1.lname.value;
+
+            if(u2.match(p2))
+            {
+                img2.innerHTML="<img src='correctsign2.webp' height='30px' width='30px'>";
+                form1.lname.style.border="4px solid green";
+                err2.innerHTML="";
+                form1.email.focus();
+            }
+            else{
+                img2.innerHTML="<img src='wrong.png' height='30px' width='30px'>";
+                form1.lname.style.border="4px solid red";
+                form1.lname.value="";
+                err2.style.color="red";
+                err2.innerHTML="Please fill Correct Name";
+                form1.lname.focus();
+            }
+
+        }
+
+        function key2(){
+            err2.innerHTML="Please Enter First Letter in Capital";
+            err2.style.color="bisque"
+            img2.innerHTML="";
+        }
+
+       var  count2=0;
+        function efun(){
+
+            if(count2==0)
+            {
+                err3.innerHTML="(altleast 4 cahracter,3digit or character in small)"
+                err3.style.color="bisque";
+            }
+
+            else{
+                err3.innerHTML="Please fill correct email";
+                err3.style.color="red";
+            }
+            count2++;
+        }
+
+        function efun1(){
+            var p3='(^[a-z]{4,10})+([0-9]{0,3})+([_#$%*]{0,1})([a-z0-9]{0,5})+([@]{1,1})+([a-z]{5,10})+([.com]{1,4})$';
+            var u3=form1.email.value;
+
+            if(u3.match(p3))
+            {
+                img3.innerHTML="<img src='correctsign2.webp' height='30px' width='30px'>";
+                form1.email.style.border="4px solid green";
+                err3.innerHTML="";
+                form1.pass1.focus();
+
+            }
+            else{
+                img3.innerHTML="<img src='wrong.png' height='30px' width='30px'>";
+                form1.email.style.border="4px solid red";
+                form1.email.value="";
+                err3.style.color="red";
+                err3.innerHTML="Please fill Correct email";
+                form1.email.focus();
+            }
+        }
+
+        function key3()
+        {
+            err3.innerHTML="(altleast 4 character,3digit or character in small)"
+            err3.style.color="bisque";
+            img3.innerHTML="";
+        }
+
+
+        var  count5=0;
+        function cfun(){
+            if(count5==0)
+            {
+                err6.innerHTML="Please Enter Mobile Number(India)";
+                err6.style.color="bisque";
+            }
+
+            else{
+                err6.innerHTML="Please fill correct mobile number";
+                err6.style.color="red";
+            }
+            count5++;
+        }
+
+        function cfun1(){
+           var p6='(^[789]{1,1})+([0-9]{9,9})$';
+           var u6=form1.cono.value;
+
+            if(u6.match(p6))
+            {
+                img6.innerHTML="<img src='correctsign2.webp' height='30px' width='30px'>";
+                form1.cono.style.border="4px solid green";
+                err6.innerHTML="";
+                form1.gen.focus();
+
+            }
+            else{
+                img6.innerHTML="<img src='wrong.png' height='30px' width='30px'>";
+                form1.cono.style.border="4px solid red";
+                form1.cono.value="";
+                err6.style.color="red";
+                err6.innerHTML="Please fill Correct mobile number";
+                form1.cono.focus();
+            }
+        }
+
+        function key6()
+        {
+            err6.innerHTML="Please Enter Mobile Number(India)";
+            err6.style.color="bisque";
+            img6.innerHTML="";
+        }
+
+    </script>
+</head>
+<body>
+    <div class="div1">
+        <div class="div2">
+            <div class="div3">
+                <h3 class="h1">Book Meeting</h3>
+            </div>
+            <div class="menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Service</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            </div>
+            <div class="search">
+                <input type="serach" name="" placeholder="Serach Here" class="srch">
+                <a href="#"><button class="sbtn1">Search</button></a>
+            </div>
+        </div>    
+        <div class="div4">
+            <table class="table2">
+                <tr>
+                    <td>
+            <div class="div5">
+                <h1 style="text-align: center; color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Appointment Form</h1>
+                
+                <br><form name ="form1" onsubmit="return sub()" method="post">
+                    
+                    <table align="center"  width="50px" cellpadding="4px" class="table1">
+                        <tr>
+                            <th>First Name</th>
+                            <td><input type="text" name="fname" placeholder="Enter First Name" id="fname" onfocus="ffun()" onblur="ffun1()" autocomplete="off"
+                                onkeypress="key1()" class="class1input"></td>
+                                <td><span id="img1"></span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="err1"></td>
+                        </tr>
+                        <tr>
+                            <th>Last Name</th>
+                            <td><input type="text" name="lname" placeholder="Enter Last Name" onfocus="lfun()" onblur="lfun1()" autocomplete="off"
+                                onkeypress="key2()" id="lname" class="class1input"></td>
+                            <td><span id="img2"></span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="err2"></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td><input type="text" name="email" placeholder="Enter Email Id" onfocus="efun()" onblur="efun1()"
+                                autocomplete="off" onkeypress="key3()" id="email" class="class1input"></td>
+                            <td><span id="img3"></span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="err3"></td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td><input type="text" name="addr" placeholder="Enter Address" onfocus="pfun()" onblur="pfun1()" 
+                                autocomplete="off" onkeypress="key4()" class="class1input"></td>
+                            <td><span id="img4"></span></td>
+            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="err4"></td>
+                        </tr>
+                        <tr>
+                            <th>Appointment Date</th>
+                            <td><input type="date" name="dtd" onfocus="cpfun()" onblur="cpfun1()" 
+                                autocomplete="off" onkeypress="key5()" id="dtd" class="class1input" min=Date()></td>
+                            <td><span id="img5"></span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="err5"></td>
+                        </tr>
+                        <tr>
+                            <th>Appointment Time</th>
+                            <td><input type="time" name="tim" onfocus="cfun()" onblur="cfun1()" 
+                                autocomplete="off" onkeypress="key6()" id="tim" class="class1input" min="09:00" max="17:30"></td>
+                            <td><span id="img7"></span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="err7"></td>
+                        </tr>
+                        <tr>
+                            <th>Contact Number</th>
+                            <td><input type="text" name="cono" placeholder="Enter Contact Number"onfocus="cfun()" onblur="cfun1()" 
+                                autocomplete="off" onkeypress="key6()" id="cono" class="class1input"></td>
+                            <td><span id="img6"></span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="err6"></td>
+                        </tr>
+                        <div class="radiobutton">
+                        <tr>
+                            <th>Gender</th>
+                            
+                            <td>Male<input type="radio" name="gen" id="male" value="male"></td>
+                         </tr>
+                            <tr>
+                            <td></td>
+                            <td>Female<input type="radio" name="gen" id="female" value="female"></td>
+                         </tr>       
+                                <tr>
+                                    <td></td>
+                                    <td>Other<input type="radio" name="gen" id="other" value="other"></td>
+                                </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </div>
+                        <tr>
+                            <th>City</th>
+                            <td>
+                                <select>
+                                    <option>Select</option>
+                                    <option >Pune</option>
+                                    <option>Mumbai</option>
+                                    <option>Nagpur</option>
+                                    <option>Sindhudurag</option>
+                                    <option>Goa</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" style="height: 50px; background-color: green; width: 100px;" id="dsbtn" ></td>
+                            <td><input type="reset" style="height: 50px; background-color: coral;  width: 100px"; ></td>
+                        </tr>
+            
+                    </table>
+            
+                </form>
+            </div>
+            </td>
+            <td>
+                    <div class="div6">
+
+                <table border="4" id="show">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Delete</th>
+                            <th>EDIT</th>
+                        </tr>
+                    </thead>
+
+                </table>
+    </div>
+    </td>
+    </tr>
+    </table>
+    </div>
+    </div>
+</body>
+</html>
